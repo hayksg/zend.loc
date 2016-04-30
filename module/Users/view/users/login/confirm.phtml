@@ -1,0 +1,6 @@
+<?php
+$headTitle = 'You are successfully logged in';
+$this->headTitle($headTitle);
+?>
+<h3><?= $this->escapeHtml($headTitle) ?></h3>
+<p>Welcome! <strong><em><?= $this->escapeHtml($this->email) ?></em></strong></p>

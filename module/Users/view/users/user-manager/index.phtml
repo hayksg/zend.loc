@@ -1,0 +1,48 @@
+<?php
+$headTitle = 'Manage Users';
+$this->headTitle($headTitle);
+?>
+<h3><?= $this->escapeHtml($headTitle) ?></h3>
+<?php if ($sessionMessage) : ?>
+    <p class="error"><?= $this->escapeHtml($sessionMessage) ?></p>
+<?php endif; ?>
+<?php if (count($this->paginator) == 0) : ?>
+    <hr>
+    <h4>Table is empty</h4>
+<?php else : ?>
+<br>
+<div class="table-responsive">
+    <table class="table table-hover">
+        <tr>
+            <th>User Name</th>
+            <th>Email Address</th>
+            <th>Management</th>
+        </tr>
+        <?php foreach ($this->paginator as $user) : ?>
+        <tr>
+            <td><?= $this->escapeHtml($user->name) ?></td>
+            <td><?= $this->escapeHtml($user->email) ?></td>
+            <td>
+                <a href="<?= $this->url('users/management', array('action' => 'edit', 'id' => $user->id)) ?>">Edit</a>
+                &nbsp;&nbsp;|
+                <form action="<?= $this->url('users/management', array('action' => 'delete', 'id' => $user->id)) ?>" 
+                      method="post"
+                      class="app-delete-user-form"
+                >
+                    <input type="submit" name="submit" value="Delete" onclick="return confirm('Are You sure?')">
+                </form>
+            </td>
+        </tr>
+        <?php endforeach; ?>
+    </table>
+</div>
+<?php endif; ?>
+<br>
+<?php
+echo $this->paginationControl(
+    $this->paginator,
+    'sliding',
+    array('partial/paginator.phtml', 'users/management'),
+    array('route' => 'users/management')
+);
+?>

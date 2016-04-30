@@ -1,0 +1,59 @@
+<?php
+$headTitle = 'Edit User';
+$this->headTitle($headTitle);
+?>
+<h3><?= $this->escapeHtml($headTitle) ?></h3>
+<?php if ($this->error) : ?>
+    <p class="error">
+        There were one or more issue with your submission.<br>
+        Please correct them as indicated below.
+    </p>
+<?php endif; ?>
+<br>
+<?php if ($this->message) : ?>
+    <div class="error"><?= $this->escapeHtml($this->message) ?></div>
+<?php endif; ?>
+<br>
+<div class="container row">
+    <div class="col-lg-5 col-md-6 col-sm-8 col-xs-10">
+        <?php
+        $form->setAttribute('action', $this->url(null, array(
+            'controller' => 'UserManager',
+            'action'     => 'process',
+            'id'         => $this->id,
+        )));
+        $form->prepare();
+
+        echo $this->form()->openTag($form);
+        echo $this->formHidden($form->get('id'));
+        ?>
+        <div class="form-group">
+            <?= $this->formLabel($form->get('name')) ?>
+            <div>
+                <?= $this->formElement($form->get('name')) ?>
+                <?= $this->formElementErrors($form->get('name')) ?>
+            </div>
+        </div>
+        <div class="form-group">
+            <?= $this->formLabel($form->get('email')) ?>
+            <div>
+                <?= $this->formElement($form->get('email')) ?>
+                <?= $this->formElementErrors($form->get('email')) ?>
+            </div>
+        </div>
+        <div class="form-group">
+            <?= $this->formLabel($form->get('password')) ?>
+            <div>
+                <?= $this->formElement($form->get('password')) ?>
+                <?= $this->formElementErrors($form->get('password')) ?>
+            </div>
+        </div>
+        <div class="form-group">
+            <div>
+                <?= $this->formElement($form->get('submit')) ?>
+                <?= $this->formElementErrors($form->get('submit')) ?>
+            </div>
+        </div>
+        <?= $this->form()->closeTag() ?>
+    </div>
+</div>
